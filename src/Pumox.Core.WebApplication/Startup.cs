@@ -50,9 +50,11 @@ namespace Pumox.Core.WebApplication
                 /// Kontekst bazy danych Vies.Core.Database.Data.ViesCoreDatabaseContext
                 services.AddDbContextPool<PumoxCoreDatabaseContext>(
                     options => options.UseSqlServer(pumoxCoreDatabaseAppSettings.GetConnectionString(), element => element.EnableRetryOnFailure())
-                    .EnableSensitiveDataLogging()
-                    .EnableDetailedErrors()
-                    .LogTo(Console.WriteLine)
+//#if DEBUG
+//                    .EnableSensitiveDataLogging()
+//                    .EnableDetailedErrors()
+//                    .LogTo(Console.WriteLine)
+//#endif
                     );
                 _log4net.Info($"Plik ustawień: { pumoxCoreDatabaseAppSettings.FilePath }");
                 _log4net.Info($"Baza danych: { pumoxCoreDatabaseAppSettings.GetConnectionString() }");

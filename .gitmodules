@@ -4,3 +4,6 @@
 [submodule "Log4netLogger"]
 	path = Log4netLogger
 	url = git@github.com:paulpiotr/Log4netLogger.git
+[submodule "Pumox.Core.WebApplication.Release"]
+	path = Pumox.Core.WebApplication.Release
+	url = git@github.com:paulpiotr/Pumox.Core.WebApplication.Release.git

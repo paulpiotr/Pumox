@@ -42,7 +42,7 @@ namespace Pumox.Core.Database.Data
         ///// </summary>
         //public PumoxCoreDatabaseContext()
         //{
-        //    CheckAndMigrate();
+        //    //CheckAndMigrate();
         //}
         //#endregion
 
@@ -103,7 +103,7 @@ namespace Pumox.Core.Database.Data
                     //Console.WriteLine($"\n\n\n { optionsBuilder.Options.ContextType } { _appSettings.GetConnectionString() } \n\n\n");
                     optionsBuilder.UseSqlServer(_appSettings.GetConnectionString());
                 }
-                CheckAndMigrate();
+                //CheckAndMigrate();
             }
             catch (Exception e)
             {
@@ -143,6 +143,8 @@ namespace Pumox.Core.Database.Data
                 lastMigrateDateTime = await _appSettings.AppSettingsRepository.GetValueAsync<DateTime>(_appSettings, "LastMigrateDateTime");
                 var isCheckAndMigrate = await _appSettings.AppSettingsRepository.GetValueAsync<bool>(_appSettings, "CheckAndMigrate");
                 var dateTimeDiffDays = (DateTime.Now - (DateTime)lastMigrateDateTime).Days;
+                //Console.WriteLine(await Database.CanConnectAsync());
+                //return;
                 if ((isCheckAndMigrate || dateTimeDiffDays >= 1) && (await Database.GetPendingMigrationsAsync()).Any())
                 {
                     try

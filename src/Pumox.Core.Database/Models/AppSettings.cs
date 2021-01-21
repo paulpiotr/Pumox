@@ -19,6 +19,20 @@ namespace Pumox.Core.Database.Models
                 var filePath = memoryCacheProvider.Get(filePathKey);
                 if (null == filePath)
                 {
+#if DEBUG
+                    try
+                    {
+                        var removeFilePath = Path.Combine(UserProfileDirectory, FileName);
+                        if (File.Exists(removeFilePath))
+                        {
+                            File.Delete(removeFilePath);
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+#endif
                     AppSettingsRepository.MergeAndCopyToUserDirectory(this);
                     memoryCacheProvider.Put(filePathKey, FilePath, TimeSpan.FromDays(1));
                 }

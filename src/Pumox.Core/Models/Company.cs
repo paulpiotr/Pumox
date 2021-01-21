@@ -62,14 +62,14 @@ namespace Pumox.Core.Models
         #endregion
 
         #region private int _establishmentYear;
-        private int _establishmentYear;
+        private short _establishmentYear;
 
         [JsonProperty(nameof(EstablishmentYear))]
-        [Column(nameof(EstablishmentYear), TypeName = "tinyint")]
+        [Column(nameof(EstablishmentYear), TypeName = "smallint")]
         [Display(Name = "Rok założenia firmy", Prompt = "Wpisz rok założenia firmy", Description = "Rok założenia firmy")]
         [Required]
-        [Range(uint.MinValue, uint.MaxValue)]
-        public int EstablishmentYear
+        [Range(short.MinValue, short.MaxValue)]
+        public short EstablishmentYear
         {
             get => _establishmentYear;
             set
@@ -87,6 +87,7 @@ namespace Pumox.Core.Models
         /// Kolekcje referencji pracowników przypisanych do firmy
         /// Collections of references of employees assigned to the company
         /// </summary>
+        [JsonProperty(nameof(Employees))]
         [Display(Name = "Pracownicy", Prompt = "Wpisz lub wybierz pracowników", Description = "Pracownicy przypisani do firmy")]
         [InverseProperty("Company")]
         public virtual ICollection<Employee> Employees { get; set; }

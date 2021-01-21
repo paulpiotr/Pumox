@@ -175,6 +175,7 @@ namespace Pumox.Core.Models
         /// Referencja do obiektu modelu firma jako Company
         /// The company model object is referenced as Company
         /// </summary>
+        [JsonProperty(nameof(Company))]
         [ForeignKey(nameof(CompanyId))]
         public virtual Company Company { get; set; }
         #endregion

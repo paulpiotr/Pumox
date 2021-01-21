@@ -20,7 +20,7 @@ namespace Pumox.Core.Models
 
         [JsonProperty(nameof(Keyword))]
         [Display(Name = "Słowa kluczowe", Prompt = "Wpisz słowa kluczowe", Description = "Słowa kluczowe")]
-        [Required]
+        //[Required]
         [MinLength(3)]
         [MaxLength(64)]
         public string Keyword

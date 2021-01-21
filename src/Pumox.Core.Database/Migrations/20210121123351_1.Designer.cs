@@ -10,7 +10,7 @@ using Pumox.Core.Database.Data;
 namespace Pumox.Core.Database.Migrations
 {
     [DbContext(typeof(PumoxCoreDatabaseContext))]
-    [Migration("20210120142647_1")]
+    [Migration("20210121123351_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,14 +23,13 @@ namespace Pumox.Core.Database.Migrations
 
             modelBuilder.Entity("Pumox.Core.Models.Company", b =>
                 {
-                    b.Property<decimal>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint identity(1,1)")
-                        .HasColumnName("Id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
-                    b.Property<byte>("EstablishmentYear")
-                        .HasColumnType("tinyint")
+                    b.Property<short>("EstablishmentYear")
+                        .HasColumnType("smallint")
                         .HasColumnName("EstablishmentYear");
 
                     b.Property<string>("Name")
@@ -52,11 +51,10 @@ namespace Pumox.Core.Database.Migrations
 
             modelBuilder.Entity("Pumox.Core.Models.Employee", b =>
                 {
-                    b.Property<decimal>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint identity(1,1)")
-                        .HasColumnName("Id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
                     b.Property<long>("CompanyId")
                         .HasColumnType("bigint")

@@ -15,9 +15,10 @@ namespace Pumox.Core.Database.Migrations
                 schema: "pcd",
                 columns: table => new
                 {
-                    Id = table.Column<decimal>(type: "bigint identity(1,1)", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
-                    EstablishmentYear = table.Column<byte>(type: "tinyint", nullable: false)
+                    EstablishmentYear = table.Column<short>(type: "smallint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,7 +30,8 @@ namespace Pumox.Core.Database.Migrations
                 schema: "pcd",
                 columns: table => new
                 {
-                    Id = table.Column<decimal>(type: "bigint identity(1,1)", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyId = table.Column<long>(type: "bigint", nullable: false),
                     FirstName = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
                     LastName = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
