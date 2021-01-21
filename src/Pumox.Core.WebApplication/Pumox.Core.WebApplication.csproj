@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -24,6 +24,15 @@
     <ProjectReference Include="..\..\NetAppCommon\NetAppCommon\NetAppCommon.csproj" />
     <ProjectReference Include="..\Pumox.Core.Database\Pumox.Core.Database.csproj" />
     <ProjectReference Include="..\Pumox.Core\Pumox.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <Target Name="SetEnvConfig" BeforeTargets="Compile">
