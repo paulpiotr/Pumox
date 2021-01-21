@@ -156,7 +156,7 @@ namespace Pumox.Core.WebApplication.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("/[controller]/Search")]
         //public async Task<ActionResult<List<Company>>> PostSearchCompanyAsync(CompanySearch companySearch)
-        public async Task<ActionResult<List<Company>>> PostSearchCompanyAsync(CompanySearch companySearch = null)
+        public async Task<ActionResult<CompanySearchResultsViewModel>> PostSearchCompanyAsync(CompanySearch companySearch = null)
         {
             if (ModelState.IsValid)
             {
@@ -199,12 +199,18 @@ namespace Pumox.Core.WebApplication.Controllers
                     }
                     if(null != companySearch?.EmployeeDateOfBirthFrom && companySearch?.EmployeeDateOfBirthFrom != DateTime.MinValue && null != companySearch?.EmployeeDateOfBirthTo && companySearch?.EmployeeDateOfBirthTo != DateTime.MinValue)
                     {
-                        sqlStringBuilder.Append(" OR ");
+                        if (sqlStringBuilder.ToString().Length > 0)
+                        {
+                            sqlStringBuilder.Append(" OR ");
+                        }
                         sqlStringBuilder.Append(" (e.DateOfBirth BETWEEN @employeeDateOfBirthFrom AND @employeeDateOfBirthTo) ");
                     }
                     if(null != companySearch?.EmployeeJobTitles)
                     {
-                        sqlStringBuilder.Append(" OR ");
+                        if (sqlStringBuilder.ToString().Length > 0)
+                        {
+                            sqlStringBuilder.Append(" OR ");
+                        }
                         sqlStringBuilder.Append(" e.JobTitle IN (SELECT CAST(value AS tinyint) FROM STRING_SPLIT(@employeeJobTitles, ',')) ");
                     }
                     if (null != companySearch?.Keyword)
@@ -235,7 +241,7 @@ namespace Pumox.Core.WebApplication.Controllers
                     //    .Select(s => s.CompanyId)
                     //    .ToListAsync();
 
-                    return await _context.Company.Where(w => (null != employeeList && employeeList.Count > 0 && employeeList.Contains(w.Id))).Include(i => i.Employees).ToListAsync();
+                    return new CompanySearchResultsViewModel { Results = await _context.Company.Where(w => (null != employeeList && employeeList.Count > 0 && employeeList.Contains(w.Id))).Include(i => i.Employees).ToListAsync() };
                 }
             }
             else
