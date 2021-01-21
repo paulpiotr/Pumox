@@ -1,0 +1,6 @@
+[submodule "NetAppCommon"]
+	path = NetAppCommon
+	url = git@github.com:paulpiotr/NetAppCommon.git
+[submodule "Log4netLogger"]
+	path = Log4netLogger
+	url = git@github.com:paulpiotr/Log4netLogger.git

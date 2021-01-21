@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.0" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Log4netLogger\Log4netLogger.csproj" />
+    <ProjectReference Include="..\..\NetAppCommon\NetAppCommon\NetAppCommon.csproj" />
+    <ProjectReference Include="..\Pumox.Core.Database\Pumox.Core.Database.csproj" />
+    <ProjectReference Include="..\Pumox.Core\Pumox.Core.csproj" />
+  </ItemGroup>
+
+  <Target Name="SetEnvConfig" BeforeTargets="Compile">
+    <Copy SourceFiles="..\..\.env\log4net.debug.config" DestinationFiles="log4net.config" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
+    <Copy SourceFiles="..\..\.env\log4net.release.config" DestinationFiles="log4net.config" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
+  </Target>
+
+</Project>

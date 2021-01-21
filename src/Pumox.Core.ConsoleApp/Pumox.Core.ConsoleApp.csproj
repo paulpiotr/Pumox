@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Log4netLogger\Log4netLogger.csproj" />
+    <ProjectReference Include="..\..\NetAppCommon\NetAppCommon\NetAppCommon.csproj" />
+    <ProjectReference Include="..\Pumox.Core.Database\Pumox.Core.Database.csproj" />
+    <ProjectReference Include="..\Pumox.Core\Pumox.Core.csproj" />
+  </ItemGroup>
+
+</Project>

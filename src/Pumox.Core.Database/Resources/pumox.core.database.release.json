@@ -1,0 +1,9 @@
+﻿{
+  "UseGlobalDatabaseConnectionSettings": false,
+  "LastMigrateDateTime": null,
+  "CacheLifeTime": 86400,
+  "ConnectionStrings": {
+    //"PumoxCoreDatabaseContext": "Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=%Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)%\\MSSQLLocalDB\\MSSQLLocalDB.mdf; Database=%AttachDbFilename%; MultipleActiveResultSets=true; Integrated Security=SSPI; Trusted_Connection=Yes; Max Pool Size=65536; Pooling=True"
+    "PumoxCoreDatabaseContext": "Server=ISK-PP\\SQLEXPRESS; Database=IUIntegrationSystemData; MultipleActiveResultSets=true; User Id=IUIntegrationSystemDataApi; Password=pTdp/6P:Z-ZP86dS%Q:U!ZK34`2UvB=v; Max Pool Size=65536; Pooling=True;"
+  }
+}

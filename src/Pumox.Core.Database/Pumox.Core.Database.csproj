@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0;netstandard2.1</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Log4netLogger\Log4netLogger.csproj" />
+    <ProjectReference Include="..\..\NetAppCommon\NetAppCommon\NetAppCommon.csproj" />
+    <ProjectReference Include="..\Pumox.Core\Pumox.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="pumox.core.database.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="SetEnvConfig" BeforeTargets="Compile">
+    <Copy SourceFiles="Resources\pumox.core.database.debug.json" DestinationFiles="pumox.core.database.json" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
+    <Copy SourceFiles="Resources\pumox.core.database.release.json" DestinationFiles="pumox.core.database.json" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
+    <Copy SourceFiles="..\..\.env\log4net.debug.config" DestinationFiles="log4net.config" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU'" />
+    <Copy SourceFiles="..\..\.env\log4net.release.config" DestinationFiles="log4net.config" OverwriteReadOnlyFiles="true" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU'" />
+  </Target>
+
+</Project>
