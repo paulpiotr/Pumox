@@ -7,9 +7,6 @@ namespace Pumox.Core.ConsoleApp
         private static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            //new Pumox.Core.Database.Data.PumoxCoreDatabaseContext().CheckAndMigrate();
-            //var connectionString = new Pumox.Core.Database.Models.AppSettings().GetConnectionString();
-            //Console.WriteLine(connectionString);
         }
     }
 }
