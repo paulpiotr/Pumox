@@ -1,3 +1,5 @@
+#region using
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -5,17 +7,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 using NetAppCommon.Validation;
 using Newtonsoft.Json;
 
+#endregion
+
 namespace Pumox.Core.Models
 {
     #region public partial class CompanySearch
+
     /// <summary>
-    /// Model danych wyszukiwania firm
-    /// Company search data model
+    ///     Model danych wyszukiwania firm
+    ///     Company search data model
     /// </summary>
     [NotMapped]
-    public partial class CompanySearch
+    public class CompanySearch
     {
         #region private string _keyword; public string Keyword
+
         private string _keyword;
 
         [JsonProperty(nameof(Keyword))]
@@ -34,6 +40,7 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
 
         #region private DateTime? _employeeDateOfBirthFrom; public DateTime? EmployeeDateOfBirthFrom
@@ -41,7 +48,8 @@ namespace Pumox.Core.Models
         private DateTime? _employeeDateOfBirthFrom;
 
         [JsonProperty(nameof(EmployeeDateOfBirthFrom))]
-        [Display(Name = "Data urodzenia pracownika od", Prompt = "Wpisz lub wybierz datę urodzenia pracownika od", Description = "Data urodzenia pracownika od")]
+        [Display(Name = "Data urodzenia pracownika od", Prompt = "Wpisz lub wybierz datę urodzenia pracownika od",
+            Description = "Data urodzenia pracownika od")]
         [DataType(DataType.DateTime)]
         [DateYearsRange(-120, -18)]
         public DateTime? EmployeeDateOfBirthFrom
@@ -55,6 +63,7 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
 
         #region private DateTime? _employeeDateOfBirthTo; public DateTime? EmployeeDateOfBirthTo
@@ -62,7 +71,8 @@ namespace Pumox.Core.Models
         private DateTime? _employeeDateOfBirthTo;
 
         [JsonProperty(nameof(EmployeeDateOfBirthTo))]
-        [Display(Name = "Data urodzenia pracownika do", Prompt = "Wpisz lub wybierz datę urodzenia pracownika do", Description = "Data urodzenia pracownika do")]
+        [Display(Name = "Data urodzenia pracownika do", Prompt = "Wpisz lub wybierz datę urodzenia pracownika do",
+            Description = "Data urodzenia pracownika do")]
         [DataType(DataType.DateTime)]
         [DateYearsRange(-120, -18)]
         public DateTime? EmployeeDateOfBirthTo
@@ -76,6 +86,7 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
 
         #region private IEnumerable<Employee.JobTitles> _employeeJobTitles; public IEnumerable<Employee.JobTitles> EmployeeJobTitles
@@ -83,7 +94,8 @@ namespace Pumox.Core.Models
         private IEnumerable<Employee.JobTitles> _employeeJobTitles;
 
         [JsonProperty(nameof(EmployeeJobTitles))]
-        [Display(Name = "Role pracownika", Prompt = "Wpisz lub wybierz role pracownika", Description = "Role pracownika")]
+        [Display(Name = "Role pracownika", Prompt = "Wpisz lub wybierz role pracownika",
+            Description = "Role pracownika")]
         public IEnumerable<Employee.JobTitles> EmployeeJobTitles
         {
             get => _employeeJobTitles;
@@ -95,7 +107,9 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
     }
+
     #endregion
 }

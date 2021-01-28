@@ -1,19 +1,37 @@
-using System;
+#region using
+
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
+#endregion
+
 namespace Pumox.Core.Models
 {
     #region public partial class Company
+
     /// <summary>
-    /// Mdel danych firma
-    /// Model danych firma
+    ///     Mdel danych firma
+    ///     Model danych firma
     /// </summary>
     [Table("Company", Schema = "pcd")]
-    public partial class Company
+    public class Company
     {
+        #region public virtual ICollection<Employee> Employees { get; set; }
+
+        /// <summary>
+        ///     Kolekcje referencji pracowników przypisanych do firmy
+        ///     Collections of references of employees assigned to the company
+        /// </summary>
+        [JsonProperty(nameof(Employees))]
+        [Display(Name = "Pracownicy", Prompt = "Wpisz lub wybierz pracowników",
+            Description = "Pracownicy przypisani do firmy")]
+        [InverseProperty("Company")]
+        public virtual ICollection<Employee> Employees { get; set; }
+
+        #endregion
+
         #region private long _id; public long Id
 
         private long _id;
@@ -34,6 +52,7 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
 
         #region private string _name; public string Name
@@ -59,14 +78,17 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
 
         #region private int _establishmentYear;
+
         private short _establishmentYear;
 
         [JsonProperty(nameof(EstablishmentYear))]
         [Column(nameof(EstablishmentYear), TypeName = "smallint")]
-        [Display(Name = "Rok założenia firmy", Prompt = "Wpisz rok założenia firmy", Description = "Rok założenia firmy")]
+        [Display(Name = "Rok założenia firmy", Prompt = "Wpisz rok założenia firmy",
+            Description = "Rok założenia firmy")]
         [Required]
         [Range(short.MinValue, short.MaxValue)]
         public short EstablishmentYear
@@ -80,18 +102,9 @@ namespace Pumox.Core.Models
                 }
             }
         }
-        #endregion
 
-        #region public virtual ICollection<Employee> Employees { get; set; }
-        /// <summary>
-        /// Kolekcje referencji pracowników przypisanych do firmy
-        /// Collections of references of employees assigned to the company
-        /// </summary>
-        [JsonProperty(nameof(Employees))]
-        [Display(Name = "Pracownicy", Prompt = "Wpisz lub wybierz pracowników", Description = "Pracownicy przypisani do firmy")]
-        [InverseProperty("Company")]
-        public virtual ICollection<Employee> Employees { get; set; }
         #endregion
     }
+
     #endregion
 }

@@ -1,5 +1,9 @@
-﻿using System;
+﻿#region using
+
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+
+#endregion
 
 namespace Pumox.Core.Database.Migrations
 {
@@ -8,17 +12,17 @@ namespace Pumox.Core.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "pcd");
+                "pcd");
 
             migrationBuilder.CreateTable(
-                name: "Company",
+                "Company",
                 schema: "pcd",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>("bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
-                    EstablishmentYear = table.Column<short>(type: "smallint", nullable: false)
+                    Name = table.Column<string>("varchar(64)", maxLength: 64, nullable: false),
+                    EstablishmentYear = table.Column<short>("smallint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,24 +30,24 @@ namespace Pumox.Core.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employee",
+                "Employee",
                 schema: "pcd",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    Id = table.Column<long>("bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CompanyId = table.Column<long>(type: "bigint", nullable: false),
-                    FirstName = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
-                    LastName = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    JobTitle = table.Column<byte>(type: "tinyint", nullable: false)
+                    CompanyId = table.Column<long>("bigint", nullable: false),
+                    FirstName = table.Column<string>("varchar(64)", maxLength: 64, nullable: false),
+                    LastName = table.Column<string>("varchar(64)", maxLength: 64, nullable: false),
+                    DateOfBirth = table.Column<DateTime>("datetime2", nullable: false),
+                    JobTitle = table.Column<byte>("tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employee", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employee_Company_CompanyId",
-                        column: x => x.CompanyId,
+                        "FK_Employee_Company_CompanyId",
+                        x => x.CompanyId,
                         principalSchema: "pcd",
                         principalTable: "Company",
                         principalColumn: "Id",
@@ -51,43 +55,43 @@ namespace Pumox.Core.Database.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Company_EstablishmentYear",
+                "IX_Company_EstablishmentYear",
                 schema: "pcd",
                 table: "Company",
                 column: "EstablishmentYear");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Company_Name",
+                "IX_Company_Name",
                 schema: "pcd",
                 table: "Company",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_CompanyId",
+                "IX_Employee_CompanyId",
                 schema: "pcd",
                 table: "Employee",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_DateOfBirth",
+                "IX_Employee_DateOfBirth",
                 schema: "pcd",
                 table: "Employee",
                 column: "DateOfBirth");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_FirstName",
+                "IX_Employee_FirstName",
                 schema: "pcd",
                 table: "Employee",
                 column: "FirstName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_JobTitle",
+                "IX_Employee_JobTitle",
                 schema: "pcd",
                 table: "Employee",
                 column: "JobTitle");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_LastName",
+                "IX_Employee_LastName",
                 schema: "pcd",
                 table: "Employee",
                 column: "LastName");
@@ -96,12 +100,12 @@ namespace Pumox.Core.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Employee",
-                schema: "pcd");
+                "Employee",
+                "pcd");
 
             migrationBuilder.DropTable(
-                name: "Company",
-                schema: "pcd");
+                "Company",
+                "pcd");
         }
     }
 }

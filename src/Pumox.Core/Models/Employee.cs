@@ -1,3 +1,5 @@
+#region using
+
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,16 +8,43 @@ using NetAppCommon.Validation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
+#endregion
+
 namespace Pumox.Core.Models
 {
     #region public partial class Employee
+
     /// <summary>
-    /// Model danych pracownik
-    /// Employee data model
+    ///     Model danych pracownik
+    ///     Employee data model
     /// </summary>
     [Table("Employee", Schema = "pcd")]
-    public partial class Employee
+    public class Employee
     {
+        #region public enum JobTitles : sbyte
+
+        public enum JobTitles : sbyte
+        {
+            [EnumMember(Value = "Administrator")] Administrator,
+            [EnumMember(Value = "Developer")] Developer,
+            [EnumMember(Value = "Architect")] Architect,
+            [EnumMember(Value = "Manager")] Manager
+        }
+
+        #endregion
+
+        #region public virtual Company Company { get; set; }
+
+        /// <summary>
+        ///     Referencja do obiektu modelu firma jako Company
+        ///     The company model object is referenced as Company
+        /// </summary>
+        [JsonProperty(nameof(Company))]
+        [ForeignKey(nameof(CompanyId))]
+        public virtual Company Company { get; set; }
+
+        #endregion
+
         #region private long _id; public long Id
 
         private long _id;
@@ -36,6 +65,7 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
 
         #region private long _companyId; public long CompanyId
@@ -43,12 +73,13 @@ namespace Pumox.Core.Models
         private long _companyId;
 
         /// <summary>
-        /// Identyfikator firmy (klucz obcy)
-        /// Company ID (foreign key)
+        ///     Identyfikator firmy (klucz obcy)
+        ///     Company ID (foreign key)
         /// </summary>
         [JsonProperty(nameof(CompanyId))]
         [Column(nameof(CompanyId), TypeName = "bigint")]
-        [Display(Name = "Identyfikator firmy", Prompt = "Wybierz lub wpisz identyfikator firmy", Description = "Identyfikator firmy (klucz obcy)")]
+        [Display(Name = "Identyfikator firmy", Prompt = "Wybierz lub wpisz identyfikator firmy",
+            Description = "Identyfikator firmy (klucz obcy)")]
         public long CompanyId
         {
             get => _companyId;
@@ -60,6 +91,7 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
 
         #region private string _firstName; public string FirstName
@@ -85,6 +117,7 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
 
         #region private string _lastName; public string LastName
@@ -110,9 +143,11 @@ namespace Pumox.Core.Models
                 }
             }
         }
+
         #endregion
 
         #region private DateTime _dateOfBirth; public DateTime DateOfBirth
+
         private DateTime _dateOfBirth;
 
         [JsonProperty(nameof(DateOfBirth))]
@@ -132,23 +167,11 @@ namespace Pumox.Core.Models
                 }
             }
         }
-        #endregion
 
-        #region public enum JobTitles : sbyte
-        public enum JobTitles : sbyte
-        {
-            [EnumMember(Value = "Administrator")]
-            Administrator,
-            [EnumMember(Value = "Developer")]
-            Developer,
-            [EnumMember(Value = "Architect")]
-            Architect,
-            [EnumMember(Value = "Manager")]
-            Manager
-        };
         #endregion
 
         #region private JobTitles _jobTitle; public JobTitles JobTitle
+
         private JobTitles _jobTitle;
 
         [JsonProperty(nameof(JobTitle))]
@@ -156,7 +179,7 @@ namespace Pumox.Core.Models
         [Column("JobTitle", TypeName = "tinyint")]
         [Display(Name = "Stanowisko", Prompt = "Wpisz lub wybierz stanowisko", Description = "Stanowisko")]
         [Required]
-        [Range(minimum: 0, maximum: 3)]
+        [Range(0, 3)]
         public JobTitles JobTitle
         {
             get => _jobTitle;
@@ -168,17 +191,9 @@ namespace Pumox.Core.Models
                 }
             }
         }
-        #endregion
 
-        #region public virtual Company Company { get; set; }
-        /// <summary>
-        /// Referencja do obiektu modelu firma jako Company
-        /// The company model object is referenced as Company
-        /// </summary>
-        [JsonProperty(nameof(Company))]
-        [ForeignKey(nameof(CompanyId))]
-        public virtual Company Company { get; set; }
         #endregion
     }
+
     #endregion
 }

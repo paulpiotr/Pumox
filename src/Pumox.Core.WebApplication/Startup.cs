@@ -1,5 +1,8 @@
+#region using
+
 using System;
 using System.Reflection;
+using log4net;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,19 +14,25 @@ using Microsoft.OpenApi.Models;
 using NetAppCommon.BasicAuthentication.Services;
 using NetAppCommon.BasicAuthentication.Services.Interface;
 using NetAppCommon.Helpers.BasicAuthentication;
+using Newtonsoft.Json;
 using Pumox.Core.Database.Data;
 using Pumox.Core.Database.Models;
+
+#endregion
 
 namespace Pumox.Core.WebApplication
 {
     public class Startup
     {
-        #region private readonly log4net.ILog _log4net
+        #region private readonly log4net.ILog _log4Net
+
         /// <summary>
-        /// Referencja klasy Log4NetLogget
-        /// Reference to the Log4NetLogget class
+        ///     Referencja klasy Log4NetLogget
+        ///     Reference to the Log4NetLogget class
         /// </summary>
-        private readonly log4net.ILog _log4net = Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _log4Net =
+            Log4netLogger.Log4netLogger.GetLog4netInstance(MethodBase.GetCurrentMethod()?.DeclaringType);
+
         #endregion
 
         public Startup(IConfiguration configuration)
@@ -39,9 +48,9 @@ namespace Pumox.Core.WebApplication
             services.AddControllers();
             /// System sprawdzania poprawności w programie .NET Core 3,0 lub nowszy traktuje parametry niedopuszczające wartości null lub właściwości powiązane tak, jakby miały [Required] atrybut. - Wyłączenie
             services.AddControllersWithViews(
-                options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
+                    options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
                 .AddNewtonsoftJson(options =>
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 );
             try
             {
@@ -49,20 +58,23 @@ namespace Pumox.Core.WebApplication
                 var pumoxCoreDatabaseAppSettings = new AppSettings();
                 /// Kontekst bazy danych Vies.Core.Database.Data.ViesCoreDatabaseContext
                 services.AddDbContextPool<PumoxCoreDatabaseContext>(
-                    options => options.UseSqlServer(pumoxCoreDatabaseAppSettings.GetConnectionString(), element => element.EnableRetryOnFailure())
-//#if DEBUG
-//                    .EnableSensitiveDataLogging()
-//                    .EnableDetailedErrors()
-//                    .LogTo(Console.WriteLine)
-//#endif
-                    );
-                _log4net.Info($"Plik ustawień: { pumoxCoreDatabaseAppSettings.FilePath }");
-                _log4net.Info($"Baza danych: { pumoxCoreDatabaseAppSettings.GetConnectionString() }");
-                _log4net.Info($"Data migracji: { pumoxCoreDatabaseAppSettings.LastMigrateDateTime }");
+                    options => options.UseSqlServer(pumoxCoreDatabaseAppSettings.GetConnectionString(),
+                        element => element.EnableRetryOnFailure())
+                //#if DEBUG
+                //                    .EnableSensitiveDataLogging()
+                //                    .EnableDetailedErrors()
+                //                    .LogTo(Console.WriteLine)
+                //#endif
+                );
+                _log4Net.Info($"Plik ustawień: {pumoxCoreDatabaseAppSettings.FilePath}");
+                _log4Net.Info($"Baza danych: {pumoxCoreDatabaseAppSettings.GetConnectionString()}");
+                _log4Net.Info($"Data migracji: {pumoxCoreDatabaseAppSettings.LastMigrateDateTime}");
             }
             catch (Exception e)
             {
-                _log4net.Error(string.Format("\n{0}\n{1}\n{2}\n{3}\n", e.GetType(), e.InnerException?.GetType(), e.Message, e.StackTrace), e);
+                _log4Net.Error(
+                    string.Format("\n{0}\n{1}\n{2}\n{3}\n", e.GetType(), e.InnerException?.GetType(), e.Message,
+                        e.StackTrace), e);
             }
 
             services.AddSwaggerGen(c =>
@@ -71,7 +83,8 @@ namespace Pumox.Core.WebApplication
             });
 
             /// Configure basic authentication 
-            services.AddAuthentication("BasicAuthentication").AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+            services.AddAuthentication("BasicAuthentication")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
             /// Configure DI for application services
             services.AddScoped<IUserService, UserService>();
         }
@@ -85,6 +98,7 @@ namespace Pumox.Core.WebApplication
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pumox.Core.WebApplication v1"));
             }
+
             app.UseRouting();
             app.UseAuthorization();
             app.UseAuthentication();

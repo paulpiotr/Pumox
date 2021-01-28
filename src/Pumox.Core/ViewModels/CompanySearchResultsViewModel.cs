@@ -1,20 +1,21 @@
-using System;
+#region using
+
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Pumox.Core.Models;
 
+#endregion
+
 namespace Pumox.Core.ViewModels
 {
-    public partial class CompanySearchResultsViewModel
+    public class CompanySearchResultsViewModel
     {
         private List<Company> _results;
 
         [JsonProperty(nameof(Results))]
-        [Display(Name = "Lista rezultatów wyszukiwania firm", Prompt = "Uzupełnij listę rezultatów wyszukiwania firm", Description = "Lista rezultatów wyszukiwania firm")]
+        [Display(Name = "Lista rezultatów wyszukiwania firm", Prompt = "Uzupełnij listę rezultatów wyszukiwania firm",
+            Description = "Lista rezultatów wyszukiwania firm")]
         public List<Company> Results
         {
             get => _results;

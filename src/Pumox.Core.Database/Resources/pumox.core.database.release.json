@@ -3,6 +3,7 @@
   "LastMigrateDateTime": null,
   "CacheLifeTime": 86400,
   "ConnectionStrings": {
-    "PumoxCoreDatabaseContext": "Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=%Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)%\\MSSQLLocalDB\\PumoxMSSQLLocalDB.mdf; Database=%AttachDbFilename%; MultipleActiveResultSets=true; Integrated Security=SSPI; Trusted_Connection=Yes; Max Pool Size=65536; Pooling=True"
+    "PumoxCoreDatabaseContext":
+      "Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=%Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)%\\MSSQLLocalDB\\PumoxMSSQLLocalDB.mdf; Database=%AttachDbFilename%; MultipleActiveResultSets=true; Integrated Security=SSPI; Trusted_Connection=Yes; Max Pool Size=65536; Pooling=True"
   }
 }
